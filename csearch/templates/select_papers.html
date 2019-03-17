@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<style>
+   .button_cool {
+   background-color: #4285F4; /* Green */
+   border: none;
+   color: white;
+   padding: auto auto;
+   text-align: left;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   -webkit-transition-duration: 0.4s; /* Safari */
+   transition-duration: 0.4s;
+   cursor: pointer;
+   }
+   .button1 {
+   background-color: white;
+   color: black;
+   border: 2px solid #4285F4;
+   }
+   .button1:hover {
+   background-color: #4285F4;
+   color: white;
+   }
+</style>
+<script>
+   function CheckboxSubmit(val){
+   document.local_form.username.value = document.local_form.username.value + '|||' + val;
+   // FOR DEBUGGING: alert(document.local_form.username.value + '|||' + val);
+     return true;
+   }
+</script>
+<form name="local_form"
+   action="{% url 'csearch:searchp_specified' %}"
+   method="POST">
+{% csrf_token %}
+<input type="hidden"
+   value={{ input }}
+   name="username" />
+<html lang="en">
+    <body bgcolor="#ecf2fd">
+       <head>
+          <meta charset="UTF-8">
+          <title>Loaded data for option.</title>
+          <h1 style="font-family: 'RobotoDraft', sans-serif;
+             font-size: 22px;;
+             color: #000;
+             margin: 4px 2px;
+             border-color: #4285F4;">{{ header }}</h1>
+       </head>
+       <tbody>
+          {% for key, value in papers.items %}
+          <tr>
+             <td style="font-family: 'RobotoDraft', sans-serif;
+                font-size: 16px;">
+                <ul><button class="button_cool button1" style="width: 40%"
+                   title="{{ key }}"
+                   name="button{{ key }}"
+                   onclick="CheckboxSubmit({{ key }}); document.local_form.submit()">{{ value }}</button>
+                </ul>
+             </td>
+          </tr>
+          {% endfor %}
+       </tbody>
+    </body>
+</html>

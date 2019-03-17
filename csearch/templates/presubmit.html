@@ -1,0 +1,122 @@
+<html>
+   <body bgcolor = "#ecf2fd" style="text-align: left">
+      <div>
+         <h1 style="
+            font-family: 'RobotoDraft', sans-serif;
+            font-size: 28px;;
+            color: #000;
+            margin: 4px 2px;
+            margin-bottom: 12px;
+            border-color: #4285F4;">
+            Citation Search
+         </h1>
+      </div>
+      <div>
+         <p style="font-family: 'RobotoDraft', sans-serif;
+            font-size: 14px;;
+            color: #000;
+            margin: 4px 2px;
+            border-color: #4285F4;
+            margin-bottom: 4%;">
+            Search for self-citation rates of publication authors on PubMed. Need more of a descrpition here.
+            <br>
+            Add some more stuff here.
+         </p>
+         <form name="form"
+            action="{% url 'csearch:searchg' %}"
+            method="POST">
+            {% csrf_token %}
+            <input type="text"
+               style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 18px;
+               width: 20%;
+               background-color: #FFFFFF;
+               color: #000;
+               border-color: #4285F4;
+               margin: 4px 2px;
+               padding: 2px"
+               placeholder="Author name"
+               name="username" />
+            <br>
+            <input type="text"
+               style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 18px;
+               width: 20%;
+               background-color: #f1f1f1;
+               color: #000;
+               border-color: #4285F4;
+               margin: 4px 2px;
+               padding: 2px"
+               placeholder="Keywords to include"
+               name="includedkey" />
+            <br>
+            <input type="text"
+               style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 18px;
+               width: 20%;
+               background-color: #f1f1f1;
+               color: #000;
+               border-color: #4285F4;
+               margin: 4px 2px;
+               padding: 2px"
+               placeholder="Keywords to exclude"
+               name="excludedkey" />
+            <br>
+            <p style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 14px;;
+               color: #000;
+               margin: 4px 2px;
+               border-color: #4285F4;
+               margin-bottom: 4%;">
+               <input type="checkbox"
+                  title="Filter to past 7 years"
+                  value="unchecked"
+                  name="filter"/>
+               Filter search to the past 7 years:
+               <br>
+               <input type="checkbox"
+                  title="repull"
+                  value="unchecked"
+                  name="repull"/>
+               Pull new data for author:
+            </p>
+            <br>
+            <br>
+            <style>
+               .button {
+               background-color: #4285F4; /* Green */
+               border: none;
+               color: white;
+               padding: 16px 32px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 18px;
+               margin: 4px 2px;
+               -webkit-transition-duration: 0.4s; /* Safari */
+               transition-duration: 0.4s;
+               cursor: pointer;
+               }
+               .button1 {
+               background-color: white;
+               color: black;
+               border: 2px solid #4285F4;
+               }
+               .button1:hover {
+               background-color: #4285F4;
+               color: white;
+               }
+            </style>
+            <button
+               style="width: 20%;
+               height: 8%;
+               font-family: 'RobotoDraft', sans-serif;"
+               class="button button1"
+               type="submit"
+               value="Search">
+            Search
+            </button>
+         </form>
+      </div>
+   </body>
+</html>

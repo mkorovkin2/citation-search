@@ -1,0 +1,87 @@
+<html>
+   <body bgcolor = "#ecf2fd" style="text-align: left">
+      <div>
+         <h1 style="
+            font-family: 'RobotoDraft', sans-serif;
+            font-size: 28px;;
+            color: #000;
+            margin: 4px 2px;
+            margin-bottom: 12px;
+            border-color: #4285F4;">
+            Citation Search
+         </h1>
+      </div>
+      <div>
+         <p style="font-family: 'RobotoDraft', sans-serif;
+            font-size: 14px;;
+            color: #000;
+            margin: 4px 2px;
+            border-color: #4285F4;
+            margin-bottom: 4%;">
+            Search for self-citation rates of publications on PubMed. Need more of a descrpition here.
+            <br>
+            Add some more stuff here.
+            <br>
+            <br>
+            <i>When searching a publication using title, DO NOT search the full title; search a primary substring instead.</i>
+         </p>
+         <form name="form"
+            action="{% url 'csearch:searchp' %}"
+            method="POST">
+            {% csrf_token %}
+            <input type="text"
+               style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 18px;
+               width: 20%;
+               background-color: #FFFFFF;
+               color: #000;
+               border-color: #4285F4;
+               margin: 4px 2px;
+               padding: 2px"
+               placeholder="PubMed ID..."
+               name="username" />
+            <input type="checkbox"
+               title="Filter to past 7 years"
+               value="unchecked"
+               name="filter"/>
+                match closest result to query
+            <br>
+            <br>
+            <style>
+               .button {
+               background-color: #4285F4; /* Green */
+               border: none;
+               color: white;
+               padding: 16px 32px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 18px;
+               margin: 4px 2px;
+               -webkit-transition-duration: 0.4s; /* Safari */
+               transition-duration: 0.4s;
+               cursor: pointer;
+               }
+               .button1 {
+               background-color: white;
+               color: black;
+               border: 2px solid #4285F4;
+               }
+               .button1:hover {
+               background-color: #4285F4;
+               color: white;
+               }
+            </style>
+            <button
+               style="width: 20%;
+               height: 8%;
+               font-family: 'RobotoDraft', sans-serif;"
+               class="button button1"
+               type="submit"
+               value="Search">
+            Search
+            </button>
+         </form>
+      </div>
+   </body>
+</html>

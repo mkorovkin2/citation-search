@@ -1,0 +1,364 @@
+{% load render_table from django_tables2 %}
+<!doctype html>
+<html>
+   <style>table, th, td {
+      border: 2px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      }
+   </style>
+   <style>
+      .button_cool {
+      background-color: #4285F4; /* Green */
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      }
+      .button1 {
+      background-color: white;
+      color: black;
+      border: 2px solid #4285F4;
+      }
+      .button1:hover {
+      background-color: #4285F4;
+      color: white;
+      }
+      .buttonx {
+      color: red;
+      padding: 0 4px;
+      margin-right: 20px;
+      }
+   </style>
+   <style>
+      .collapsible {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+      padding: 4px;
+      width: 35%;
+      border: 2px solid #4285F4;
+      margin: 4px 2px;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      }
+      .active, .collapsible:hover {
+      background-color: #4285F4;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      color: white;
+      }
+      .content {
+      padding: 0 8px;
+      display: none;
+      border: 2px solid #4285F4;
+      width: 50%;
+      overflow: scroll;
+      max-height: 35%;
+      background-color: #f1f1f1;
+      }
+   </style>
+   <body bgcolor="#ecf2fd">
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 28px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;
+         margin-bottom: 2%;">
+         Search query: <strong>{{ username }}</strong>
+      </p>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;
+         margin-bottom: 2%;">
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <strong>Statistical Summary</strong>
+      </p>
+      <table style="width:25%; font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;
+         color: #000;">
+         <tr>
+            <td>Backward self-citation rate</td>
+            <td><a id="self_citation_rate_percentage"><strong><mark>{{ percent }}%</mark></strong></a></td>
+         </tr>
+         <tr>
+            <td>Forward self-citation rate</td>
+            <td><a>{{ fsr }}%</a></td>
+         </tr>
+         <tr>
+            <td>Estimated percentile based on distribution</td>
+            <td><a>{{ percentile }}</a></td>
+         </tr>
+      </table>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <br>
+         <strong>Summary of Data Used</strong>
+      </p>
+      <script>
+         function DoSubmit(val){
+           switch(val) {
+               case 1:
+                   document.local_form.username.value += "|||Original Citations Inspected|||" + val;
+                   break;
+               case 2:
+                   document.local_form.username.value += "|||Total Backward References Inspected|||" + val;
+                   break;
+               case 3:
+                   document.local_form.username.value += "|||Backward Self-References|||" + val;
+                   break;
+               case 4:
+                   document.local_form.username.value += "|||Total Forward Citations|||" + val;
+                   break;
+               default:
+                   document.local_form.username.value += "|||error|||" + val;
+                   break;
+           }
+
+           return true;
+         }
+
+         function SubmitFilter(val){
+                 document.filter_form.excludedkey.value = val;
+                 return true;
+             }
+      </script>
+      <table style="width:25%; font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;
+         color: #000;">
+         <tr>
+            <td>Total publications sampled from author</td>
+            <td><a style="color: #4245A4" ><u id="total_citations_display">{{ total_citations }}</u></a></td>
+         </tr>
+         <tr>
+            <td>Total backward-in-time references</td>
+            <td><a style="color: #4245A4"><u id="b_total_citations_display">{{ ss_insp }}</u></a></td>
+         </tr>
+         <tr>
+            <td>Backward-in-time self-references</td>
+            <td><a style="color: #4245A4" ><u id="bss_total_citations_display">{{ ss_number }}</u></a></td>
+         </tr>
+         <tr>
+            <td>Total forward-in-time references</td>
+            <td><a style="color: #4245A4" ><u id="f_total_citations_display">{{ forward_citation_number }}</u></a></td>
+         </tr>
+      </table>
+      <br>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <strong>Graphical Representation</strong>
+      </p>
+      <body>
+         {% load static %}
+         <img src="{% static "temp_fig.png" %}" border="2px" style="margin: 4px 2px; border-color: #4285F4;"/>
+   </body>
+   <p style="font-family: 'RobotoDraft', sans-serif;
+      font-size: 16px;;
+      color: #AAA;
+      margin: 4px 2px;
+      border-color: #4285F4;"><i>authors ~ β(1.230, 7.078)</i></p>
+   <script>
+      var total_to_remove = "";
+      var total_to_remove_int1 = 0;
+      var total_to_remove_int2 = 0;
+      var total_to_remove_int3 = 0;
+      var total_to_remove_int4 = 0;
+
+      function deleteItem(val, val2) {
+          let xx = val;let yy = "ul"+val;var elem = document.getElementById(xx);document.getElementById(yy).remove();
+          elem.parentNode.removeChild(elem);total_to_remove += "|||" + val;
+          if (val2 === 1) {
+              total_to_remove_int1 += 1
+          } else if (val2 === 2) {
+              total_to_remove_int2 += 1
+          } else if (val2 === 3) {
+              total_to_remove_int3 += 1
+          } else {
+              total_to_remove_int4 += 1
+          }
+          return true;
+      }
+      function note_remove(val) {//self_citation_rate_percentage
+          if (val === 1) {
+              document.getElementById("total_citations_display").innerHTML = parseInt(document.getElementById("total_citations_display").innerHTML) - 1;//total_to_remove_int1;
+          } else if (val === 2) {
+              document.getElementById("self_citation_rate_percentage").innerHTML = "<strong><mark>" + Math.round((parseInt(document.getElementById("bss_total_citations_display").innerHTML)) / (parseInt(document.getElementById("b_total_citations_display").innerHTML) - 1) * 10000) / 100 + "%" + "</strong></mark>";
+              document.getElementById("b_total_citations_display").innerHTML = parseInt(document.getElementById("b_total_citations_display").innerHTML) - 1;//total_to_remove_int2;
+          } else if (val === 3) {
+              document.getElementById("self_citation_rate_percentage").innerHTML = "<strong><mark>" + Math.round((parseInt(document.getElementById("bss_total_citations_display").innerHTML) - 1) / (parseInt(document.getElementById("b_total_citations_display").innerHTML)) * 10000) / 100 + "%" + "</strong></mark>";
+              document.getElementById("bss_total_citations_display").innerHTML = parseInt(document.getElementById("bss_total_citations_display").innerHTML) - 1;//total_to_remove_int3;
+          } else {
+              document.getElementById("f_total_citations_display").innerHTML = parseInt(document.getElementById("f_total_citations_display").innerHTML) - 1;//total_to_remove_int4;
+          }
+          return true;
+      }
+   </script>
+   <script>
+      function call_python(){
+          alert("yeeet");
+          try {
+              $.ajax({
+                  type: 'get',
+                  url: '/updated',
+                  cache: false,
+                  async: 'asynchronous',
+                  dataType: 'json',
+                  success: function (data) {
+                      console.log(JSON.stringify(data))
+                      alert("worked")
+                  },
+                  error: function (request, status, error) {
+                      console.log("Error: " + error)
+                  }
+              });
+          } catch (err) {
+              alert("ERROR:" + err)
+          }
+      }
+   </script>
+   <br>
+   <button class="collapsible">Edit total publications</button>
+   <div class="content">
+      <tbody>
+         {% for key, value in papers_input_1.items %}
+         <tr>
+            <!--href="{{ key }}"-->
+            <td>
+               <a style="font-family: 'RobotoDraft', sans-serif;
+                  font-size: 16px;">
+                  <ul id="ul{{ key }}"><button class="buttonx"
+                     title="{{ value }}" name="{{ key }}"
+                     id="{{ key }}" onclick="deleteItem(this.id, 1);note_remove(1);">-</button> {{ value }} [<i>
+               <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ key }}">link</a></i>]
+               </ul></a>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </div>
+   <br>
+   <button class="collapsible">Edit backward publications</button>
+   <div class="content">
+      <tbody>
+         {% for key, value in papers_input_2.items %}
+         <tr>
+            <!--href="{{ key }}"-->
+            <td>
+               <a style="font-family: 'RobotoDraft', sans-serif;
+                  font-size: 16px;">
+                  <ul id="ul{{ key }}"><button class="buttonx"
+                     title="{{ value }}" name="{{ key }}"
+                     id="{{ key }}" onclick="deleteItem(this.id, 2);note_remove(2);">-</button> {{ value }} [<i>
+               <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ key }}">link</a></i>]
+               </ul></a>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </div>
+   <br>
+   <button class="collapsible">Edit backward self-citations</button>
+   <div class="content">
+      <tbody>
+         {% for key, value in papers_input_3.items %}
+         <td>
+            <a style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 16px;">
+               <ul id="ul{{ key }}"><button class="buttonx"
+                  title="{{ value }}" name="{{ key }}"
+                  id="{{ key }}" onclick="deleteItem(this.id, 3);note_remove(3);">-</button> {{ value }} [<i>
+            <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ key }}">link</a></i>]
+            </ul></a>
+         </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </div>
+   <br>
+   <button class="collapsible">Edit forward publications</button>
+   <div class="content">
+      <tbody>
+         {% for key, value in papers_input_4.items %}
+         <td>
+            <a style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 16px;">
+               <ul id="ul{{ key }}"><button class="buttonx"
+                  title="{{ value }}" name="{{ key }}"
+                  id="{{ key }}" onclick="deleteItem(this.id, 4);note_remove(4);">-</button> {{ value }} [<i>
+            <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ key }}">link</a></i>]
+            </ul></a>
+         </td>
+         {% endfor %}
+      </tbody>
+   </div>
+   <br><button
+      style="width: 35%;
+      font-size: 18px;
+      height: auto;
+      padding: 16px 32px;
+      font-family: 'RobotoDraft', sans-serif;"
+      class="button_cool button1"
+      id="submit_changes"
+      onclick="jssubmit_changes();">
+   <i>Commit dataset changes</i>
+   </button>
+   <script>
+      function jssubmit_changes() {
+          document.change_form.includedkey.value = total_to_remove;
+          document.change_form.submit();
+          return true;
+      }
+   </script>
+   <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+   </script>
+   <br>
+   <form name="change_form"
+      action="{% url 'csearch:searchg2' %}"
+      method="POST" style="width: 1%; height: 1%">
+   {% csrf_token %}
+   <input type="hidden"
+      value="{{ username }}|||{{ local_link }}"
+      name="username" />
+   <input type="hidden"
+      value={{ filter_value_ }}
+      name="filter" />
+   <input type="hidden"
+      value=""
+      name="excludedkey" />
+   <input type="hidden"
+      value=""
+      name="includedkey" />
+</html>

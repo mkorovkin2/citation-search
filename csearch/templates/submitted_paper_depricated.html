@@ -1,0 +1,59 @@
+<html>
+   <body bgcolor="#ecf2fd">
+      <h1 style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 28px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;;">
+         <i>{{ pub_name }}</i>
+      </h1>
+      <h1 style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;
+         margin-bottom: 2%;">
+         Self-citation frequency: <mark>{{ percent }}</mark>%
+      </h1>
+      <hr>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <i>{{ author_string }}</i>
+      </p>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;
+         margin-bottom: 2%;">
+         <br>
+         The PubMed website was searched for the PubMed ID "<strong>{{ pubid }}</strong>";
+         <br>
+         A sample size of {{ total_citations }} {{ publication_number_ext }} was used to estimate the above statistic.
+         <br><br>
+         This publication is in the <strong>{{ percentile }}{{ percentile_ext }} percentile</strong> of large-sample self-citation frequency. Published in {{ pub_year }}.
+         <br>
+         {{ cited_in_text }}
+         <br>
+         <br>
+         PubMed: <a href={{ pub_link }}>{{ pubid }}</a>
+         <br>
+         DOI: <a href={{ pub_doi_link }}>{{ pub_doi }}</a>
+      </p>
+      {% load static %}
+      <img src="{% static "temp_fig_pub.png" %}" border="2px" style="margin: 4px 2px; border-color: #4285F4;"/>
+      <br>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 14px;;
+         color: #4285F4;
+         margin: 4px 2px;
+         border-color: #4285F4;
+         margin-bottom: 2%;">
+         <i>Graph generated from ?#? data points.
+         </i>
+      </p>
+   </body>
+</html>

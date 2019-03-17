@@ -1,0 +1,36 @@
+<html>
+   <body bgcolor="#ecf2fd">
+      <h1 style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 28px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;
+         margin-bottom: 2%;">
+         Self-citation frequency: <mark>{{ percent }}%</mark>{{ xx }}
+      </h1>
+      <p>
+         The PubMed website was searched for the publications of author "<strong>{{ username }}</strong>";
+         <br>
+         A sample size of {{ total_citations }} {{ publication_number_ext }} was used to estimate the above statistic.
+         <br>
+         There were found to be {{ ss_number }} occurrences of self-citation; {{ ss_insp }} total references were inspected.
+         <br><br>
+         Author "{{ username }}" is in <strong>{{ percentile }}{{ percentile_ext }} percentile</strong> (mathematical) of large-sample self-citation frequency.
+         This author is in the <strong>{{ percentile_practical }}{{ percentile_practical_ext }} percentile</strong> (practical).
+         <br><br>
+         <strong>Statistics for scaling:</strong>
+         <br>
+         25th percentile: {{ twenty_five }}%
+         <br>
+         50th percentile: {{ fifty }}%
+         <br>
+         75th percentile: {{ seventy_five }}%
+         <br>
+         <br>
+         <i>Note: these statistics are computed only from the "backwards-in-time" self-citation rates.</i>
+         <br>
+      </p>
+      {% load static %}
+      <img src="{% static "temp_fig.png" %}" border="2px" style="margin: 4px 2px; border-color: #4285F4;"/>
+   </body>
+</html>

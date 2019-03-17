@@ -1,0 +1,267 @@
+{% load render_table from django_tables2 %}
+<html>
+   <style>table, th, td {
+      border: 2px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      }
+   </style>
+   <style>
+      .button_cool {
+      background-color: #4285F4; /* Green */
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      }
+      .button1 {
+      background-color: white;
+      color: black;
+      border: 2px solid #4285F4;
+      }
+      .button1:hover {
+      background-color: #4285F4;
+      color: white;
+      }
+      .buttonx {
+      color: red;
+      padding: 0 4px;
+      margin-right: 20px;
+      }
+   </style>
+   <style>
+      .collapsible {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+      padding: 4px;
+      width: 35%;
+      border: 2px solid #4285F4;
+      margin: 4px 2px;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      }
+      .active, .collapsible:hover {
+      background-color: #4285F4;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      color: white;
+      }
+      .content {
+      padding: 0 8px;
+      display: none;
+      border: 2px solid #4285F4;
+      width: 50%;
+      overflow: scroll;
+      max-height: 35%;
+      background-color: #f1f1f1;
+      }
+   </style>
+   <style>table, th, td {
+      border: 2px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      }
+   </style>
+   <body bgcolor="#ecf2fd">
+      <h1 style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <i>{{ pub_name }}</i>
+      </h1>
+      <hr>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <i>{{ author_string }}</i>
+      </p>
+      <br>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <strong>Publication Information</strong>
+      </p>
+      <table style="width:35%; font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;
+         color: #000;">
+         <tr>
+            <td>PubMed link</td>
+            <td><a href={{ pub_link }}>{{ pubid }}</a></td>
+         </tr>
+         <tr>
+            <td>DOI link</td>
+            <td><a href={{ pub_doi_link }}>{{ pub_doi }}</a></td>
+      </table>
+      <br>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <strong>Statistical Summary</strong>
+      </p>
+      <table style="width:35%; font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;
+         color: #000;">
+         </tr>
+         <tr>
+            <td>Backward self-citation rate</td>
+            <td><a><strong><mark>{{ percent }}%</mark></strong></a></td>
+         </tr>
+         <tr>
+            <td>Forward self-citation rate</td>
+            <td><a>{{ forward_percent }}%</a></td>
+         </tr>
+         <tr>
+            <td>Estimated percentile based on distribution</td>
+            <td><a>{{ percentile }}</a></td>
+         </tr>
+      </table>
+      <br>
+      <script>
+         function DoSubmit(val){
+           switch(val) {
+               case 1:
+                   document.local_form.username.value += "|||Original Citations Inspected|||" + val;
+                   break;
+               case 2:
+                   document.local_form.username.value += "|||Total Backward References Inspected|||" + val;
+                   break;
+               case 3:
+                   document.local_form.username.value += "|||Backward Self-References|||" + val;
+                   break;
+               case 4:
+                   document.local_form.username.value += "|||Total Forward Citations|||" + val;
+                   break;
+               default:
+                   document.local_form.username.value += "|||error|||" + val;
+                   break;
+           }
+
+           return true;
+         }
+      </script>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <strong>Summary of Data Used</strong>
+      </p>
+      <table style="width:35%; font-family: 'RobotoDraft', sans-serif;
+         font-size: 16px;
+         color: #000;">
+         <tr>
+            <td>Total backward-in-time references</td>
+            <td><a style="color: #4245A4" onclick="DoSubmit(1); document.forms['local_form'].submit()"><u>{{ total_citations }}</u></a></td>
+         </tr>
+         <tr>
+            <td>Backward-in-time self-references</td>
+            <td><a style="color: #4245A4" onclick="DoSubmit(3); document.forms['local_form'].submit()"><u>{{ ss_number }}</u></a></td>
+         </tr>
+         <tr>
+            <td>Total forward-in-time references</td>
+            <td><a style="color: #4245A4" onclick="DoSubmit(4); document.forms['local_form'].submit()"><u>{{ forward_citation_number }}</u></a></td>
+         </tr>
+      </table>
+      <br>
+      <p style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">
+         <strong>Graphical Representation</strong>
+      </p>
+      {% load static %}
+      <img src="{% static "temp_fig_pub.png" %}" border="2px" style="margin: 4px 2px; border-color: #4285F4;"/>
+      <br>
+   </body>
+   <p style="font-family: 'RobotoDraft', sans-serif;
+      font-size: 16px;;
+      color: #AAA;
+      margin: 4px 2px;
+      border-color: #4285F4;"><i>publications ~ β(0.521, 9.493)</i></p>
+   <br>
+   <button class="collapsible">Edit backward publications</button>
+   <div class="content">
+      <tbody>
+         {% for key, value in papers_input_2.items %}
+         <tr>
+            <!--href="{{ key }}"-->
+            <td>
+               <a style="font-family: 'RobotoDraft', sans-serif;
+                  font-size: 16px;">
+                  <ul id="ulcheckbox{{ value }}">
+                     <button class="buttonx"
+                        title="{{ value }}" name="checkbox{{ key }}"
+                        id="checkbox{{ value }}" onclick="deleteItem(this.id, 2);note_remove(2);">-</button>      {{ value }} [<i>
+               <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ key }}">link</a></i>]
+               </ul></a>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </div>
+   <br>
+   <button class="collapsible">Edit forward publications</button>
+   <div class="content">
+      <tbody>
+         {% for key, value in papers_input_4.items %}
+         <tr>
+            <!--href="{{ key }}"-->
+            <td>
+               <a style="font-family: 'RobotoDraft', sans-serif;
+                  font-size: 16px;">
+                  <ul id="ulcheckbox{{ value }}">
+                     <button class="buttonx"
+                        title="{{ value }}" name="checkbox{{ key }}"
+                        id="checkbox{{ value }}" onclick="deleteItem(this.id, 4);note_remove(4);">-</button>     {{ value }} [<i>
+               <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ key }}">link</a></i>]
+               </ul></a>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </div>
+   <br><button
+      style="width: 35%;
+      font-size: 18px;
+      height: auto;
+      padding: 16px 32px;
+      font-family: 'RobotoDraft', sans-serif;"
+      class="button_cool button1"
+      id="submit_changes"
+      onclick="jssubmit_changes();">
+   <i>Commit dataset changes</i>
+   </button>
+   <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+   </script>
+</html>

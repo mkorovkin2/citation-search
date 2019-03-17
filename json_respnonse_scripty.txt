@@ -1,0 +1,86 @@
+{
+    "header": {
+        "type": "esearch",
+        "version": "0.3"
+    },
+    "esearchresult": {
+        "count": "49",
+        "retmax": "49",
+        "retstart": "0",
+        "idlist": [
+            "30411401",
+            "30210757",
+            "30064517",
+            "29328905",
+            "28826659",
+            "28332238",
+            "27698522",
+            "27264012",
+            "26674816",
+            "26628308",
+            "26443092",
+            "26136473",
+            "26057493",
+            "25396764",
+            "25135593",
+            "25091138",
+            "25075119",
+            "25074524",
+            "25056320",
+            "24969073",
+            "24613700",
+            "24505153",
+            "23435652",
+            "23267852",
+            "23155771",
+            "23049804",
+            "22549441",
+            "22303384",
+            "22260405",
+            "21622529",
+            "20953780",
+            "20576701",
+            "20446088",
+            "19383824",
+            "19095701",
+            "17663765",
+            "17630829",
+            "17437958",
+            "17237101",
+            "17175540",
+            "17068088",
+            "16873491",
+            "16362901",
+            "15466286",
+            "15133624",
+            "12695323",
+            "12385982",
+            "12022223",
+            "11984599"
+        ],
+        "translationset": [
+            {
+                "from": "gary benson[author]",
+                "to": "Gary, Benson[Full Author Name] OR Benson, Gary[Full Author Name]"
+            }
+        ],
+        "translationstack": [
+            {
+                "term": "Gary, Benson[Full Author Name]",
+                "field": "Full Author Name",
+                "count": "1",
+                "explode": "N"
+            },
+            {
+                "term": "Benson, Gary[Full Author Name]",
+                "field": "Full Author Name",
+                "count": "48",
+                "explode": "N"
+            },
+            "OR",
+            "GROUP"
+        ],
+        "querytranslation": "Gary, Benson[Full Author Name] OR Benson, Gary[Full Author Name]"
+    }
+}
+

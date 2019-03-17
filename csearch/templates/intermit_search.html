@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      {% for key, value in links.items %}
+      <tr>
+         <td>
+            <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{ key }}" style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 16px;">
+               <ul><input type="checkbox"
+                  title="{{ value }}"
+                  name="checkbox{{ key }}"/>Contents{{ value }}
+               </ul>
+            </a>
+         </td>
+      </tr>
+      {% endfor %}
+   </head>
+   <body>
+   </body>
+</html>

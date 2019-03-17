@@ -1,0 +1,25 @@
+<head>
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+   [
+   <div id="output_box"></div>
+   ]
+   <script type="text/javascript">
+      let frm = $('/search_author/');
+      frm.submit(function () {
+          $.ajax({
+              type: frm.attr('POST'),
+              url: frm.attr('action'),
+              data: frm.serialize(),
+              success: function (data) {
+                  $('#output_box').load('/search_author/');
+              },
+              error: function(data) {
+                  $("#output_box").html("Something went wrong!");
+              }
+          });
+          return false;
+      });
+   </script>
+</body>

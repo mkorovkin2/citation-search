@@ -1,0 +1,39 @@
+name:Sequencing and analysis of chromosome 1 of Eimeria tenella reveals a unique segmental organization.
+year:2007
+doi:10.1101/gr.5823007
+id:17284678
+fa:Ling KH
+la:Wan KL
+gauthor:Ling KH
+gauthor:Rajandream MA
+gauthor:Rivailler P
+gauthor:Ivens A
+gauthor:Yap SJ
+gauthor:Madeira AM
+gauthor:Mungall K
+gauthor:Billington K
+gauthor:Yee WY
+gauthor:Bankier AT
+gauthor:Carroll F
+gauthor:Durham AM
+gauthor:Peters N
+gauthor:Loo SS
+gauthor:Isa MN
+gauthor:Novaes J
+gauthor:Quail M
+gauthor:Rosli R
+gauthor:Nor Shamsudin M
+gauthor:Sobreira TJ
+gauthor:Tivey AR
+gauthor:Wai SF
+gauthor:White S
+gauthor:Wu X
+gauthor:Kerhornou A
+gauthor:Blake D
+gauthor:Mohamed R
+gauthor:Shirley M
+gauthor:Gruber A
+gauthor:Berriman M
+gauthor:Tomley F
+gauthor:Dear PH
+gauthor:Wan KL

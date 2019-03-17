@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<script>
+   function CheckboxSubmit(val){
+       var counter = 0, // counter for checked checkboxes
+       i = 0,       // loop variable
+       url = '',    // final url string
+       // get a collection of objects with the specified 'input' TAGNAME
+       input_obj = document.getElementsByTagName('input');
+   // loop through all collected objects
+   for (i = 0; i < input_obj.length; i++) {
+       // if input object is checkbox and checkbox is checked then ...
+       if (input_obj[i].type === 'checkbox' && input_obj[i].checked) {
+           // ... increase counter and concatenate checkbox value to the url string
+           counter++;
+           url = url + input_obj[i].name + '|';
+       }
+   }
+   // display url string or message if there is no checked checkboxes
+   if (counter > 0) {
+       // remove first "&" from the generated url string
+       //url = url.substr(1);
+       // display final url string
+       //alert(url);
+   }
+   else {
+       alert('There is no checked checkbox');
+       url = ''
+   }
+   document.local_form.username.value = document.local_form.username.value + '|||' + val + '|||' +  url;
+
+     return true;
+   }
+</script>
+<form name="local_form"
+   action="{% url 'csearch:update_list' %}"
+   method="POST">
+{% csrf_token %}
+<input type="hidden"
+   value={{ input }}
+   name="username" />
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Loaded data for option.</title>
+      <h1 style="font-family: 'RobotoDraft', sans-serif;
+         font-size: 22px;;
+         color: #000;
+         margin: 4px 2px;
+         border-color: #4285F4;">{{ header }}</h1>
+   </head>
+   <tbody>
+      {% for key, value in links.items %}
+      <tr>
+         <td>
+            <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{ key }}" style="font-family: 'RobotoDraft', sans-serif;
+               font-size: 16px;">
+               <ul><input type="checkbox"
+                  title="{{ value }}"
+                  name="checkbox{{ key }}"/>{{ value }}
+               </ul>
+            </a>
+         </td>
+      </tr>
+      {% endfor %}
+   </tbody>
+   <button name="submit_button" onclick="CheckboxSubmit({{ operation }})">submit update request</button>
+</html>
